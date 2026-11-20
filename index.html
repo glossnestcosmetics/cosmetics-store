@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gloss Nest Cosmetics</title>
+  <style>
+    body { font-family: sans-serif; background: #fff8fa; color: #25131a; margin: 0; padding: 20px; }
+    .card { max-width: 460px; margin: 0 auto; background: #fff; border: 1px solid #f2d5df; border-radius: 16px; padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    h1 { color: #8e1b43; font-size: 24px; margin-top: 0; }
+    .price { font-size: 22px; font-weight: bold; color: #b8295a; margin: 10px 0; }
+    input, textarea, select { width: 100%; padding: 10px; margin: 6px 0 12px; border: 1px solid #e7c6d2; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+    button { width: 100%; padding: 13px; background: #b8295a; color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Gloss Nest Cosmetics</h1>
+    <p><strong>7-Fold Whitening & Anti-Wrinkle Royal Cream</strong></p>
+    <div class="price">৳৩৯৯</div>
+    <form onsubmit="sendOrder(event)">
+      <label>আপনার নাম</label>
+      <input type="text" id="name" required placeholder="নাম লিখুন" />
+      <label>মোবাইল নম্বর</label>
+      <input type="tel" id="phone" required placeholder="01XXXXXXXXX" />
+      <label>ঠিকানা</label>
+      <textarea id="address" rows="2" required placeholder="সম্পূর্ণ ঠিকানা লিখুন"></textarea>
+      <label>ডেলিভারি এলাকা</label>
+      <select id="area">
+        <option value="ঢাকার ভেতরে (৳৬০)">ঢাকার ভেতরে (৳৬০)</option>
+        <option value="ঢাকার বাইরে (৳১২০)">ঢাকার বাইরে (৳১২০)</option>
+      </select>
+      <button type="submit">WhatsApp-এ অর্ডার করুন (01885494199)</button>
+    </form>
+  </div>
+  <script>
+    function sendOrder(e) {
+      e.preventDefault();
+      var name = document.getElementById("name").value;
+      var phone = document.getElementById("phone").value;
+      var address = document.getElementById("address").value;
+      var area = document.getElementById("area").value;
+      var text = "Gloss Nest Cosmetics অর্ডার%0Aপ্রোডাক্ট: 7-Fold Whitening & Anti-Wrinkle Royal Cream (৳৩৯৯)%0Aনাম: " + encodeURIComponent(name) + "%0Aফোন: " + encodeURIComponent(phone) + "%0Aঠিকানা: " + encodeURIComponent(address) + "%0Aডেলিভারি: " + encodeURIComponent(area);
+      window.open("https://wa.me/8801885494199?text=" + text, "_blank");
+    }
+  </script>
+</body>
+</html>
