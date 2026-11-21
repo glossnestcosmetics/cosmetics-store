@@ -5,354 +5,491 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gloss Nest Cosmetics</title>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: sans-serif;
-      background: #fff5f8;
-      margin: 0;
-      padding: 16px;
-      color: #222;
+    * {
+      box-sizing: border-box;
     }
-    .container {
-      max-width: 520px;
+    body {
+      margin: 0;
+      padding: 18px 14px 40px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #fff3f7 0%, #fce8ef 100%);
+      color: #26191e;
+    }
+    .page {
+      max-width: 560px;
       margin: 0 auto;
+    }
+    .hero {
+      background: linear-gradient(135deg, #8e1538 0%, #c2255c 100%);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(142, 21, 56, 0.22);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: 0.3px;
+    }
+    .hero p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.92;
     }
     .card {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 20px;
-      box-shadow: 0 8px 24px rgba(158, 27, 67, 0.08);
+      box-shadow: 0 8px 24px rgba(142, 21, 56, 0.08);
       margin-bottom: 18px;
+      border: 1px solid #f7dce5;
     }
-    h1 {
-      color: #9e1b43;
-      font-size: 24px;
-      margin: 0 0 14px 0;
-      text-align: center;
-    }
-    h2 {
-      color: #9e1b43;
+    .section-title {
+      margin: 0 0 14px;
       font-size: 18px;
-      margin: 0 0 12px 0;
+      color: #8e1538;
+      font-weight: 700;
     }
-    .product-box {
-      border: 1px solid #f2d5df;
-      border-radius: 14px;
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .product-card {
+      border: 1px solid #f4d6e0;
+      background: #fffafd;
+      border-radius: 16px;
       padding: 14px;
-      margin-bottom: 14px;
-      background: #fffafc;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .product-box img {
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(142, 21, 56, 0.08);
+    }
+    .product-img {
       width: 100%;
-      max-height: 280px;
+      height: 250px;
       object-fit: cover;
       border-radius: 12px;
-      margin-bottom: 10px;
       display: block;
+      margin-bottom: 12px;
+      background: #f9e6ed;
     }
-    .product-title {
+    .product-name {
       font-size: 17px;
-      font-weight: bold;
-      margin: 0 0 6px 0;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: #2b1820;
     }
-    .price {
+    .product-price {
       font-size: 20px;
-      font-weight: bold;
+      font-weight: 800;
       color: #9e1b43;
       margin-bottom: 10px;
+    }
+    .select-mini-btn {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e3b7c6;
+      background: #fff0f5;
+      color: #8e1538;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .select-mini-btn:hover {
+      background: #fce0ea;
     }
     label {
       display: block;
       font-size: 14px;
-      font-weight: bold;
-      margin: 10px 0 5px 0;
+      font-weight: 700;
+      margin: 12px 0 6px;
+      color: #382029;
     }
     input, textarea, select {
       width: 100%;
-      padding: 11px 12px;
-      border: 1px solid #d8c2ca;
-      border-radius: 10px;
+      padding: 12px 13px;
+      border: 1.5px solid #e4c6d0;
+      border-radius: 11px;
       font-size: 15px;
-      background: #fff;
+      background: #ffffff;
+      color: #222;
     }
-    button {
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #9e1b43;
+    }
+    .btn {
       width: 100%;
-      padding: 13px;
+      padding: 13px 16px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 15px;
-      font-weight: bold;
+      font-weight: 700;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
     }
     .btn-primary {
-      background: #9e1b43;
+      background: linear-gradient(135deg, #8e1538 0%, #b51d4a 100%);
       color: #ffffff;
+      box-shadow: 0 6px 16px rgba(142, 21, 56, 0.22);
     }
     .btn-secondary {
-      background: #f3e6eb;
-      color: #9e1b43;
+      background: #f7e6ec;
+      color: #8e1538;
     }
     .btn-danger {
-      background: #ffe3e3;
+      background: #ffe3e6;
       color: #b42318;
-      padding: 8px 12px;
-      font-size: 13px;
       width: auto;
-      margin-top: 6px;
+      padding: 8px 13px;
+      font-size: 13px;
+      margin-top: 10px;
     }
-    .admin-panel {
+    .manager-box {
       display: none;
       border: 2px dashed #9e1b43;
       background: #fff9fb;
     }
-    .admin-item {
-      border: 1px solid #e5cbd4;
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 12px;
+    .manager-box.open {
+      display: block;
+    }
+    .editor-card {
       background: #ffffff;
+      border: 1px solid #ebd0d9;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
     }
-    .note {
-      font-size: 12px;
-      color: #666;
-      margin-top: 6px;
+    .editor-head {
+      font-weight: 800;
+      color: #8e1538;
+      margin-bottom: 6px;
+      font-size: 15px;
     }
-    .admin-toggle-wrap {
+    .tip {
+      font-size: 12.5px;
+      color: #5c434c;
+      background: #fdf0f4;
+      padding: 10px 12px;
+      border-radius: 10px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .toggle-wrap {
       text-align: center;
-      margin-top: 10px;
+      margin-top: 8px;
     }
-    .admin-toggle-btn {
+    .toggle-btn {
       width: auto;
-      padding: 9px 16px;
-      font-size: 13px;
-      background: #efe2e7;
-      color: #6d122e;
-      border-radius: 20px;
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: 1.5px solid #e2b5c4;
+      background: #ffffff;
+      color: #8e1538;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .status-msg {
+      margin-top: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #157347;
+      text-align: center;
+      min-height: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
+  <div class="page">
+    <div class="hero">
       <h1>Gloss Nest Cosmetics</h1>
+      <p>স্কিনকেয়ার ও বিউটি কালেকশন • সরাসরি WhatsApp অর্ডার</p>
+    </div>
 
-      <div id="productList"></div>
+    <div class="card">
+      <h2 class="section-title">আমাদের প্রোডাক্টসমূহ</h2>
+      <div id="productContainer" class="products-grid"></div>
+    </div>
 
-      <form onsubmit="sendOrder(event)">
-        <label for="productSelect">প্রোডাক্ট নির্বাচন করুন</label>
-        <select id="productSelect"></select>
+    <div class="card" id="orderCard">
+      <h2 class="section-title">অর্ডার ফর্ম</h2>
+      <form id="orderForm">
+        <label for="selectedProduct">প্রোডাক্ট নির্বাচন করুন</label>
+        <select id="selectedProduct"></select>
 
-        <label for="name">আপনার নাম</label>
-        <input type="text" id="name" placeholder="নাম লিখুন" required />
+        <label for="customerName">আপনার নাম</label>
+        <input type="text" id="customerName" placeholder="আপনার পূর্ণ নাম লিখুন" required />
 
-        <label for="phone">মোবাইল নম্বর</label>
-        <input type="tel" id="phone" placeholder="01XXXXXXXXX" required />
+        <label for="customerPhone">মোবাইল নম্বর</label>
+        <input type="tel" id="customerPhone" placeholder="01XXXXXXXXX" required />
 
-        <label for="address">ঠিকানা</label>
-        <textarea id="address" rows="2" placeholder="সম্পূর্ণ ঠিকানা লিখুন" required></textarea>
+        <label for="customerAddress">ঠিকানা</label>
+        <textarea id="customerAddress" rows="2" placeholder="বাড়ি/রোড/এলাকা ও জেলা লিখুন" required></textarea>
 
-        <label for="area">ডেলিভারি এলাকা</label>
-        <select id="area">
+        <label for="deliveryArea">ডেলিভারি এলাকা</label>
+        <select id="deliveryArea">
           <option value="ঢাকার ভেতরে (৳৬০)">ঢাকার ভেতরে (৳৬০)</option>
           <option value="ঢাকার বাইরে (৳১২০)">ঢাকার বাইরে (৳১২০)</option>
         </select>
 
-        <button type="submit" class="btn-primary">WhatsApp-এ অর্ডার করুন (01885494199)</button>
+        <button type="submit" class="btn btn-primary">
+          WhatsApp-এ অর্ডার করুন (01885494199)
+        </button>
       </form>
     </div>
 
-    <div class="card admin-panel" id="adminPanel">
-      <h2>Admin / Edit Mode</h2>
-      <p class="note">
-        ছবি ফাইলগুলো GitHub রিপোজিটরিতে আপলোড করে এখানে শুধু ছবির নাম (যেমন: <b>IMG_7004.jpeg</b> বা <b>IMG_7005.jpeg</b> বা <b>IMG_7006.jpeg</b>) বা ছবির লিংক দিন।
-      </p>
+    <div class="card manager-box" id="managerPanel">
+      <h2 class="section-title">প্রোডাক্ট এডিট ও নতুন আইটেম যোগ করুন</h2>
+      <div class="tip">
+        • যেকোনো প্রোডাক্টের <b>নাম</b>, <b>দাম</b> এবং <b>ছবির ফাইলের নাম</b> (যেমন: <b>IMG_7004.jpeg</b>, <b>IMG_7005.jpeg</b>, <b>IMG_7006.jpeg</b>) এখানে লিখুন।<br />
+        • ২–৩টা বা তারও বেশি প্রোডাক্ট যোগ করতে <b>+ নতুন প্রোডাক্ট যোগ করুন</b> চাপুন।<br />
+        • সব ঠিক হলে <b>পরিবর্তন সেভ করুন</b> বাটনে চাপুন।
+      </div>
 
-      <div id="adminProductList"></div>
+      <div id="editorList"></div>
 
-      <button type="button" class="btn-secondary" onclick="addProduct()">+ নতুন প্রোডাক্ট যোগ করুন</button>
-      <button type="button" class="btn-primary" onclick="saveProducts()">সব পরিবর্তন সেভ করুন</button>
-      <button type="button" class="btn-secondary" onclick="resetDefaultProducts()">ডিফল্ট প্রোডাক্টে ফিরুন</button>
-      <button type="button" class="btn-secondary" onclick="logoutAdmin()">Admin Mode বন্ধ করুন</button>
+      <button type="button" class="btn btn-secondary" id="addItemBtn">+ নতুন প্রোডাক্ট যোগ করুন</button>
+      <button type="button" class="btn btn-primary" id="saveItemBtn">পরিবর্তন সেভ করুন</button>
+      <button type="button" class="btn btn-secondary" id="resetItemBtn">ডিফল্ট প্রোডাক্টে ফিরান</button>
+      <button type="button" class="btn btn-secondary" id="closePanelBtn">প্যানেল বন্ধ করুন</button>
+      <div id="saveStatus" class="status-msg"></div>
     </div>
 
-    <div class="admin-toggle-wrap">
-      <button type="button" class="admin-toggle-btn" onclick="toggleAdmin()">Admin / Edit Mode</button>
+    <div class="toggle-wrap">
+      <button type="button" class="toggle-btn" id="openPanelBtn">
+        প্রোডাক্ট এডিট / অ্যাড করুন
+      </button>
     </div>
   </div>
 
   <script>
-    const ADMIN_PIN = "1234";
-    const STORAGE_KEY = "gloss_nest_products_v1";
+    (function () {
+      var STORAGE_KEY = "gloss_nest_cosmetics_catalog_v1";
 
-    const defaultProducts = [
-      {
-        name: "7-Fold Whitening & Anti-Wrinkle Royal Cream",
-        price: "৩৯৯",
-        image: "IMG_7004.jpeg"
-      }
-    ];
-
-    let products = loadProducts();
-    let isAdminUnlocked = false;
-
-    function loadProducts() {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed;
-          }
+      var DEFAULT_CATALOG = [
+        {
+          name: "7-Fold Whitening & Anti-Wrinkle Royal Cream",
+          price: "৩৯৯",
+          image: "IMG_7004.jpeg"
         }
-      } catch (e) {}
-      return JSON.parse(JSON.stringify(defaultProducts));
-    }
+      ];
 
-    function renderStore() {
-      const listEl = document.getElementById("productList");
-      const selectEl = document.getElementById("productSelect");
+      var catalog = [];
 
-      listEl.innerHTML = "";
-      selectEl.innerHTML = "";
-
-      products.forEach((item, index) => {
-        const box = document.createElement("div");
-        box.className = "product-box";
-
-        const imgHtml = item.image
-          ? `<img src="${escapeAttr(item.image)}" alt="${escapeAttr(item.name)}" onerror="this.style.display='none'" />`
-          : "";
-
-        box.innerHTML = `
-          ${imgHtml}
-          <div class="product-title">${escapeHtml(item.name)}</div>
-          <div class="price">৳${escapeHtml(item.price)}</div>
-        `;
-        listEl.appendChild(box);
-
-        const option = document.createElement("option");
-        option.value = `${item.name} (৳${item.price})`;
-        option.textContent = `${item.name} - ৳${item.price}`;
-        if (index === 0) option.selected = true;
-        selectEl.appendChild(option);
-      });
-    }
-
-    function renderAdminList() {
-      const adminListEl = document.getElementById("adminProductList");
-      adminListEl.innerHTML = "";
-
-      products.forEach((item, idx) => {
-        const div = document.createElement("div");
-        div.className = "admin-item";
-        div.innerHTML = `
-          <label>প্রোডাক্টের নাম</label>
-          <input type="text" value="${escapeAttr(item.name)}" onchange="updateField(${idx}, 'name', this.value)" />
-
-          <label>দাম (শুধু সংখ্যা বা বাংলা সংখ্যা)</label>
-          <input type="text" value="${escapeAttr(item.price)}" onchange="updateField(${idx}, 'price', this.value)" />
-
-          <label>ছবির ফাইলনাম বা লিংক</label>
-          <input type="text" value="${escapeAttr(item.image)}" placeholder="যেমন: IMG_7004.jpeg" onchange="updateField(${idx}, 'image', this.value)" />
-
-          <button type="button" class="btn-danger" onclick="deleteProduct(${idx})">মুছে ফেলুন</button>
-        `;
-        adminListEl.appendChild(div);
-      });
-    }
-
-    function updateField(index, field, value) {
-      products[index][field] = value.trim();
-    }
-
-    function addProduct() {
-      products.push({
-        name: "নতুন প্রোডাক্ট",
-        price: "৪৯৯",
-        image: "IMG_7005.jpeg"
-      });
-      renderAdminList();
-    }
-
-    function deleteProduct(index) {
-      if (products.length <= 1) {
-        alert("অন্তত ১টি প্রোডাক্ট রাখা প্রয়োজন।");
-        return;
+      function escapeHtml(text) {
+        return String(text || "")
+          .replace(/&/g, "&")
+          .replace(/</g, "<")
+          .replace(/>/g, ">")
+          .replace(/"/g, """);
       }
-      products.splice(index, 1);
-      renderAdminList();
-    }
 
-    function saveProducts() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-      renderStore();
-      alert("পরিবর্তন সেভ হয়েছে!");
-    }
-
-    function resetDefaultProducts() {
-      products = JSON.parse(JSON.stringify(defaultProducts));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-      renderStore();
-      renderAdminList();
-      alert("ডিফল্ট প্রোডাক্টে ফিরে এসেছে।");
-    }
-
-    function toggleAdmin() {
-      const panel = document.getElementById("adminPanel");
-      if (isAdminUnlocked) {
-        panel.style.display = panel.style.display === "block" ? "none" : "block";
-        return;
+      function loadCatalog() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              return parsed;
+            }
+          }
+        } catch (err) {}
+        return [
+          {
+            name: "7-Fold Whitening & Anti-Wrinkle Royal Cream",
+            price: "৩৯৯",
+            image: "IMG_7004.jpeg"
+          }
+        ];
       }
-      const pin = prompt("Admin Mode খুলতে PIN দিন:");
-      if (pin === ADMIN_PIN) {
-        isAdminUnlocked = true;
-        panel.style.display = "block";
-        renderAdminList();
-        panel.scrollIntoView({ behavior: "smooth" });
-      } else if (pin !== null) {
-        alert("ভুল PIN!");
+
+      function saveCatalog(data) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (err) {}
       }
-    }
 
-    function logoutAdmin() {
-      isAdminUnlocked = false;
-      document.getElementById("adminPanel").style.display = "none";
-    }
+      function renderProducts() {
+        var container = document.getElementById("productContainer");
+        var dropdown = document.getElementById("selectedProduct");
+        container.innerHTML = "";
+        dropdown.innerHTML = "";
 
-    function sendOrder(e) {
-      e.preventDefault();
-      var product = document.getElementById("productSelect").value;
-      var name = document.getElementById("name").value.trim();
-      var phone = document.getElementById("phone").value.trim();
-      var address = document.getElementById("address").value.trim();
-      var area = document.getElementById("area").value;
+        for (var i = 0; i < catalog.length; i++) {
+          var item = catalog[i];
+          var card = document.createElement("div");
+          card.className = "product-card";
 
-      var message =
-        "Gloss Nest Cosmetics অর্ডার\n" +
-        "প্রোডাক্ট: " + product + "\n" +
-        "নাম: " + name + "\n" +
-        "মোবাইল: " + phone + "\n" +
-        "ঠিকানা: " + address + "\n" +
-        "ডেলিভারি: " + area;
+          var imgPart = "";
+          if (item.image && item.image.trim() !== "") {
+            imgPart =
+              '<img class="product-img" src="' +
+              escapeHtml(item.image.trim()) +
+              '" alt="' +
+              escapeHtml(item.name) +
+              '" onerror="this.style.display=\'none\'" />';
+          }
 
-      var url = "https://wa.me/8801885494199?text=" + encodeURIComponent(message);
-      window.open(url, "_blank");
-    }
+          card.innerHTML =
+            imgPart +
+            '<div class="product-name">' + escapeHtml(item.name) + '</div>' +
+            '<div class="product-price">৳' + escapeHtml(item.price) + '</div>' +
+            '<button type="button" class="select-mini-btn" data-select-index="' + i + '">এই প্রোডাক্টটি অর্ডার করুন</button>';
 
-    function escapeHtml(str) {
-      return String(str || "")
-        .replace(/&/g, "&")
-        .replace(/</g, "<")
-        .replace(/>/g, ">")
-        .replace(/"/g, """);
-    }
+          container.appendChild(card);
 
-    function escapeAttr(str) {
-      return escapeHtml(str).replace(/'/g, "'");
-    }
+          var opt = document.createElement("option");
+          opt.value = item.name + " (৳" + item.price + ")";
+          opt.textContent = item.name + " — ৳" + item.price;
+          dropdown.appendChild(opt);
+        }
 
-    renderStore();
+        var selectBtns = container.querySelectorAll(".select-mini-btn");
+        for (var j = 0; j < selectBtns.length; j++) {
+          selectBtns[j].onclick = function () {
+            var idx = parseInt(this.getAttribute("data-select-index"), 10);
+            var chosen = catalog[idx];
+            if (chosen) {
+              dropdown.value = chosen.name + " (৳" + chosen.price + ")";
+              document.getElementById("orderCard").scrollIntoView({ behavior: "smooth" });
+            }
+          };
+        }
+      }
+
+      function collectEditorValues() {
+        var names = document.querySelectorAll("#editorList .edit-name");
+        var prices = document.querySelectorAll("#editorList .edit-price");
+        var images = document.querySelectorAll("#editorList .edit-image");
+
+        var list = [];
+        for (var i = 0; i < names.length; i++) {
+          list.push({
+            name: names[i].value.trim() || "নতুন প্রোডাক্ট",
+            price: prices[i].value.trim() || "০",
+            image: images[i].value.trim()
+          });
+        }
+        if (list.length > 0) {
+          catalog = list;
+        }
+      }
+
+      function renderEditor() {
+        var editorList = document.getElementById("editorList");
+        editorList.innerHTML = "";
+
+        for (var i = 0; i < catalog.length; i++) {
+          var item = catalog[i];
+          var box = document.createElement("div");
+          box.className = "editor-card";
+          box.innerHTML =
+            '<div class="editor-head">প্রোডাক্ট #' + (i + 1) + '</div>' +
+            '<label>প্রোডাক্টের নাম</label>' +
+            '<input type="text" class="edit-name" value="' + escapeHtml(item.name) + '" />' +
+            '<label>দাম (টাকা)</label>' +
+            '<input type="text" class="edit-price" value="' + escapeHtml(item.price) + '" />' +
+            '<label>ছবির ফাইলনাম (যেমন: IMG_7005.jpeg)</label>' +
+            '<input type="text" class="edit-image" value="' + escapeHtml(item.image) + '" placeholder="IMG_7004.jpeg" />' +
+            '<button type="button" class="btn btn-danger remove-item-btn" data-remove-index="' + i + '">এই প্রোডাক্ট মুছুন</button>';
+
+          editorList.appendChild(box);
+        }
+
+        var delBtns = editorList.querySelectorAll(".remove-item-btn");
+        for (var j = 0; j < delBtns.length; j++) {
+          delBtns[j].onclick = function () {
+            if (catalog.length <= 1) {
+              alert("ওয়েবসাইটে অন্তত ১টি প্রোডাক্ট থাকতে হবে।");
+              return;
+            }
+            var idx = parseInt(this.getAttribute("data-remove-index"), 10);
+            collectEditorValues();
+            catalog.splice(idx, 1);
+            renderEditor();
+          };
+        }
+      }
+
+      document.getElementById("openPanelBtn").onclick = function () {
+        var panel = document.getElementById("managerPanel");
+        var isOpen = panel.classList.toggle("open");
+        document.getElementById("saveStatus").textContent = "";
+        if (isOpen) {
+          renderEditor();
+          panel.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+
+      document.getElementById("closePanelBtn").onclick = function () {
+        document.getElementById("managerPanel").classList.remove("open");
+      };
+
+      document.getElementById("addItemBtn").onclick = function () {
+        collectEditorValues();
+        var nextImage = "IMG_7005.jpeg";
+        if (catalog.length === 2) {
+          nextImage = "IMG_7006.jpeg";
+        }
+        catalog.push({
+          name: "নতুন প্রোডাক্ট " + (catalog.length + 1),
+          price: "৪৫০",
+          image: nextImage
+        });
+        renderEditor();
+        document.getElementById("saveStatus").textContent = "নতুন বক্স যোগ হয়েছে—তথ্য লিখে নিচে সেভ করুন।";
+      };
+
+      document.getElementById("saveItemBtn").onclick = function () {
+        collectEditorValues();
+        saveCatalog(catalog);
+        renderProducts();
+        document.getElementById("saveStatus").textContent = "সব পরিবর্তন সফলভাবে সেভ হয়েছে!";
+      };
+
+      document.getElementById("resetItemBtn").onclick = function () {
+        catalog = [
+          {
+            name: "7-Fold Whitening & Anti-Wrinkle Royal Cream",
+            price: "৩৯৯",
+            image: "IMG_7004.jpeg"
+          }
+        ];
+        saveCatalog(catalog);
+        renderProducts();
+        renderEditor();
+        document.getElementById("saveStatus").textContent = "ডিফল্ট প্রোডাক্টে রিসেট করা হয়েছে।";
+      };
+
+      document.getElementById("orderForm").onsubmit = function (e) {
+        e.preventDefault();
+        var product = document.getElementById("selectedProduct").value;
+        var name = document.getElementById("customerName").value.trim();
+        var phone = document.getElementById("customerPhone").value.trim();
+        var address = document.getElementById("customerAddress").value.trim();
+        var area = document.getElementById("deliveryArea").value;
+
+        var msg =
+          "Gloss Nest Cosmetics অর্ডার\n" +
+          "প্রোডাক্ট: " + product + "\n" +
+          "নাম: " + name + "\n" +
+          "মোবাইল: " + phone + "\n" +
+          "ঠিকানা: " + address + "\n" +
+          "ডেলিভারি: " + area;
+
+        var waUrl = "https://wa.me/8801885494199?text=" + encodeURIComponent(msg);
+        window.open(waUrl, "_blank");
+      };
+
+      catalog = loadCatalog();
+      renderProducts();
+    })();
   </script>
 </body>
 </html>
