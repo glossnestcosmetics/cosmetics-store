@@ -1836,3 +1836,152 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gloss Nest Cosmetics</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      background: #fff5f8;
+      margin: 0;
+      padding: 16px;
+      color: #222;
+    }
+    .box {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(158, 27, 67, 0.08);
+    }
+    h1 {
+      color: #9e1b43;
+      text-align: center;
+      margin: 0 0 8px 0;
+      font-size: 24px;
+    }
+    h2 {
+      color: #9e1b43;
+      margin: 18px 0 10px 0;
+      font-size: 19px;
+    }
+    .product-name {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .price {
+      font-size: 21px;
+      font-weight: bold;
+      color: #9e1b43;
+      margin-bottom: 12px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #f2d5df;
+      display: block;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #d8c2ca;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: #9e1b43;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Gloss Nest Cosmetics</h1>
+
+    <h2>আমাদের প্রোডাক্টসমূহ</h2>
+    <div class="product-name">7-Fold Whitening & Anti-Wrinkle Royal Cream</div>
+    <div class="price">৳৩৯৯</div>
+
+    <div class="gallery">
+      <img src="IMG_7004.jpeg" alt="Royal Cream 1" />
+      <img src="IMG_7005.jpeg" alt="Royal Cream 2" />
+      <img src="IMG_7006.jpeg" alt="Royal Cream 3" />
+    </div>
+
+    <h2>অর্ডার ফর্ম</h2>
+    <form onsubmit="sendOrder(event)">
+      <label for="name">আপনার নাম</label>
+      <input type="text" id="name" placeholder="নাম লিখুন" required />
+
+      <label for="phone">মোবাইল নম্বর</label>
+      <input type="tel" id="phone" placeholder="01XXXXXXXXX" required />
+
+      <label for="address">ঠিকানা</label>
+      <textarea id="address" rows="2" placeholder="সম্পূর্ণ ঠিকানা লিখুন" required></textarea>
+
+      <label for="area">ডেলিভারি এলাকা</label>
+      <select id="area">
+        <option value="ঢাকার ভেতরে (৳৬০)">ঢাকার ভেতরে (৳৬০)</option>
+        <option value="ঢাকার বাইরে (৳১২০)">ঢাকার বাইরে (৳১২০)</option>
+      </select>
+
+      <button type="submit">WhatsApp-এ অর্ডার করুন (01885494199)</button>
+    </form>
+  </div>
+
+  <script>
+    function sendOrder(e) {
+      e.preventDefault();
+      var name = document.getElementById("name").value.trim();
+      var phone = document.getElementById("phone").value.trim();
+      var address = document.getElementById("address").value.trim();
+      var area = document.getElementById("area").value;
+
+      var msg =
+        "Gloss Nest Cosmetics অর্ডার\n" +
+        "প্রোডাক্ট: 7-Fold Whitening & Anti-Wrinkle Royal Cream (৳৩৯৯)\n" +
+        "নাম: " + name + "\n" +
+        "মোবাইল: " + phone + "\n" +
+        "ঠিকানা: " + address + "\n" +
+        "ডেলিভারি: " + area;
+
+      var url = "https://wa.me/8801885494199?text=" + encodeURIComponent(msg);
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
