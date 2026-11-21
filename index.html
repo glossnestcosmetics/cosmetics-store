@@ -301,7 +301,7 @@
       padding: 16px;
       font-size: 15px;
     }
-    .summary-line { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .summary-line { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
     .summary-total {
       display: flex;
       justify-content: space-between;
@@ -450,23 +450,23 @@
         <div class="form-grid">
           <div class="field">
             <label for="custName">আপনার নাম *</label>
-            <input type="text" id="custName" required placeholder="যেমন: নুসরাত জাহান" />
+            <input type="text" id="custName" required placeholder="যেমন: নুসরাত জাহান" oninput="renderSummary()" />
           </div>
           <div class="field">
             <label for="custPhone">মোবাইল নম্বর *</label>
-            <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" />
+            <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" oninput="renderSummary()" />
           </div>
           <div class="field">
             <label for="deliveryArea">ডেলিভারি এলাকা *</label>
             <select id="deliveryArea" onchange="renderSummary()">
-              <option value="dhaka" data-fee="60">ঢাকার ভেতরে (ডেলিভারি চার্জ ৳৬০)</option>
-              <option value="outside" data-fee="120">ঢাকার বাইরে (ডেলিভারি চার্জ ৳১২০)</option>
+              <option value="dhaka" data-fee="60" data-label="ঢাকার ভেতরে (৳৬০)">ঢাকার ভেতরে (ডেলিভারি চার্জ ৳৬০)</option>
+              <option value="outside" data-fee="120" data-label="ঢাকার বাইরে (৳১২০)">ঢাকার বাইরে (ডেলিভারি চার্জ ৳১২০)</option>
             </select>
           </div>
         </div>
         <div class="field" style="margin-top: 14px;">
           <label for="custAddress">সম্পূর্ণ ঠিকানা *</label>
-          <textarea id="custAddress" rows="2" required placeholder="বাড়ি/হোল্ডিং নম্বর, রোড, এলাকা, থানা ও জেলা"></textarea>
+          <textarea id="custAddress" rows="2" required placeholder="বাড়ি/হোল্ডিং নম্বর, রোড, এলাকা, থানা ও জেলা" oninput="renderSummary()"></textarea>
         </div>
         <div class="summary-box" id="orderSummary"></div>
         <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
@@ -602,7 +602,7 @@
 
     function ensureQuantities() {
       storeData.products.forEach((p, idx) => {
-        if (!quantities[p.id]) {
+        if (typeof quantities[p.id] !== "number") {
           quantities[p.id] = idx === 0 ? 1 : 0;
         }
       });
@@ -675,270 +675,52 @@
       document.getElementById("order-section").scrollIntoView({ behavior: "smooth" });
     }
 
-    function renderSummary() {
-      const areaSelect = document.getElementById("deliveryArea");
-      const deliveryFee = Number(areaSelect.options[areaSelect.selectedIndex].dataset.fee || 60);
-      let subtotal = 0;
-      const selectedItems = [];
-
-      storeData.products.forEach(p => {
-        const q = quantities[p.id] || 0;
-        if (q > 0) {
-          const lineTotal = q * Number(p.price || 0);
-          subtotal += lineTotal;
-          selectedItems.push(`${p.name} x ${q} = ৳${lineTotal}`);
-        }
-      });
-
-      const total = subtotal > 0 ? subtotal + deliveryFee : 0;
-      const summaryEl = document.getElementById("orderSummary");
-      summaryEl.innerHTML = `
-        <div class="summary-line">
-          <span>সিলেক্টেড প্রোডাক্ট:</span>
-          <span>${selectedItems.length ? escapeHtml(selectedItems.join(", ")) : "কোনো প্রোডাক্ট সিলেক্ট করা হয়নি (+ বাটনে চাপুন)"}</span>
-        </div>
-        <div class="summary-line">
-          <span>প্রোডাক্ট মূল্য:</span>
-          <strong>${formatBdt(subtotal)}</strong>
-        </div>
-        <div class="summary-line">
-          <span>ডেলিভারি চার্জ:</span>
-          <strong>${subtotal > 0 ? formatBdt(deliveryFee) : "৳০"}</strong>
-        </div>
-        <div class="summary-total">
-          <span>সর্বমোট পরিশোধযোগ্য:</span>
-          <span>${formatBdt(total)}</span>
-        </div>
-      `;
-    }
-
-    function submitWhatsAppOrder(e) {
-      e.preventDefault();
+    function getOrderCalculation() {
       const name = document.getElementById("custName").value.trim();
       const phone = document.getElementById("custPhone").value.trim();
       const address = document.getElementById("custAddress").value.trim();
       const areaSelect = document.getElementById("deliveryArea");
-      const areaText = areaSelect.options[areaSelect.selectedIndex].text;
-      const deliveryFee = Number(areaSelect.options[areaSelect.selectedIndex].dataset.fee || 60);
+      const selectedOpt = areaSelect.options[areaSelect.selectedIndex];
+      const deliveryFee = Number(selectedOpt.dataset.fee || 60);
+      const areaLabel = selectedOpt.dataset.label || selectedOpt.text;
 
       let subtotal = 0;
       const lines = [];
+      const summaryParts = [];
+
       storeData.products.forEach(p => {
         const q = quantities[p.id] || 0;
         if (q > 0) {
           const lineTotal = q * Number(p.price || 0);
           subtotal += lineTotal;
-          lines.push(`• ${p.name} (${q} পিস) - ৳${lineTotal}`);
+          summaryParts.push(`${p.name} x${q} = ৳${lineTotal}`); lines.push(`- ${p.name} (${q} পিস) = ৳${lineTotal}`);
         }
       });
 
-      if (lines.length === 0) {
-        alert("অনুগ্রহ করে অন্তত ১টি প্রোডাক্টের পরিমাণ (+ বাটন) সিলেক্ট করুন।");
-        return;
-      }
-
-      const grandTotal = subtotal + deliveryFee;
-      const msg = [
-        "✨ *Gloss Nest Cosmetics — নতুন অর্ডার* ✨",
-        `👤 নাম: ${name}`,
-        `📞 ফোন: ${phone}`,
-        `📍 ঠিকানা: ${address}`,
-        `🚚 ডেলিভারি: ${areaText}`,
-        "",
-        "🛍️ *অর্ডারকৃত প্রোডাক্ট:*",
-        ...lines,
-        "",
-        `💰 প্রোডাক্ট মূল্য: ৳${subtotal}`,
-        `📦 ডেলিভারি চার্জ: ৳${deliveryFee}`,
-        `💵 *সর্বমোট: ৳${grandTotal}*`
-      ].join("\n");
-
-      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-      window.open(waUrl, "_blank", "noopener,noreferrer");
+      const total = subtotal > 0 ? subtotal + deliveryFee : 0;
+      return { name, phone, address, subtotal, deliveryFee, areaLabel, total, lines, summaryParts };
     }
 
-    function openAdminModal() {
-      document.getElementById("pinInput").value = "";
-      document.getElementById("pinError").style.display = "none";
-      document.getElementById("pinModal").classList.add("open");
-      setTimeout(() => document.getElementById("pinInput").focus(), 50);
-    }
-
-    function closeAdminModal() {
-      document.getElementById("pinModal").classList.remove("open");
-    }
-
-    function verifyPin() {
-      const entered = document.getElementById("pinInput").value.trim();
-      if (entered === ADMIN_PIN) {
-        closeAdminModal();
-        document.getElementById("adminPanel").classList.add("active");
-        document.getElementById("adminPanel").scrollIntoView({ behavior: "smooth" });
-      } else {
-        document.getElementById("pinError").style.display = "block";
-      }
-    }
-
-    function closeAdminPanel() {
-      document.getElementById("adminPanel").classList.remove("active");
-    }
-
-    function handleImageUpload(event) {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        currentUploadedDataUrl = ev.target.result;
-        document.getElementById("prodImageUrl").value = currentUploadedDataUrl;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function saveProduct(e) {
-      e.preventDefault();
-      const editId = document.getElementById("editProductId").value.trim();
-      const name = document.getElementById("prodName").value.trim();
-      const price = Number(document.getElementById("prodPrice").value);
-      const desc = document.getElementById("prodDesc").value.trim();
-      const image = document.getElementById("prodImageUrl").value.trim() || currentUploadedDataUrl || "";
-      if (!name || !price) return;
-
-      if (editId) {
-        const idx = storeData.products.findIndex(p => p.id === editId);
-        if (idx > -1) {
-          storeData.products[idx] = { ...storeData.products[idx], name, price, desc, image };
-        }
-      } else {
-        const newId = "prod-" + Date.now();
-        storeData.products.push({ id: newId, name, price, desc, image });
-        quantities[newId] = 1;
-      }
-
-      persistLocal();
-      resetEditorForm();
-      renderProducts();
-      alert("প্রোডাক্ট সেভ হয়েছে! সব কাস্টমারকে দেখাতে 'Export Updated index.html' বাটনে ক্লিক করে ফাইলটি আপডেট করুন।");
-    }
-
-    function editProduct(id) {
-      const prod = storeData.products.find(p => p.id === id);
-      if (!prod) return;
-      document.getElementById("editProductId").value = prod.id;
-      document.getElementById("prodName").value = prod.name;
-      document.getElementById("prodPrice").value = prod.price;
-      document.getElementById("prodDesc").value = prod.desc || "";
-      document.getElementById("prodImageUrl").value = prod.image || "";
-      currentUploadedDataUrl = prod.image || "";
-      document.getElementById("saveProdBtn").textContent = "✓ আপডেট সেভ করুন";
-      document.getElementById("productEditorForm").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function deleteProduct(id) {
-      if (storeData.products.length <= 1) {
-        alert("অন্তত ১টি প্রোডাক্ট স্টোরে রাখা প্রয়োজন।");
-        return;
-      }
-      if (!confirm("আপনি কি এই প্রোডাক্টটি ডিলিট করতে চান?")) return;
-      storeData.products = storeData.products.filter(p => p.id !== id);
-      delete quantities[id];
-      persistLocal();
-      renderProducts();
-    }
-
-    function resetEditorForm() {
-      document.getElementById("editProductId").value = "";
-      document.getElementById("prodName").value = "";
-      document.getElementById("prodPrice").value = "";
-      document.getElementById("prodDesc").value = "";
-      document.getElementById("prodImageUrl").value = "";
-      document.getElementById("prodImageFile").value = "";
-      currentUploadedDataUrl = "";
-      document.getElementById("saveProdBtn").textContent = "+ প্রোডাক্ট সেভ করুন";
-    }
-
-    function renderAdminList() {
-      const container = document.getElementById("adminProductList");
-      container.innerHTML = `<h4 style="margin-bottom: 8px;">বর্তমান প্রোডাক্ট লিস্ট (${storeData.products.length})</h4>` + storeData.products.map(p => {
-        const fallback = createPlaceholderImage(p.name);
-        const thumb = p.image && p.image.trim() ? p.image.trim() : fallback;
-        return `
-          <div class="admin-list-item">
-            <div class="admin-item-left">
-              <img src="${escapeHtml(thumb)}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='${fallback}'" />
-              <div>
-                <div style="font-weight: 700;">${escapeHtml(p.name)}</div>
-                <div style="font-size: 14px; color: var(--rose-dark); font-weight: 600;">${formatBdt(p.price)}</div>
-              </div>
-            </div>
-            <div style="display: flex; gap: 8px;">
-              <button type="button" class="btn btn-outline" style="padding: 7px 12px; font-size: 13.5px;" onclick="editProduct('${p.id}')">Edit</button>
-              <button type="button" class="btn btn-danger" style="padding: 7px 12px; font-size: 13.5px;" onclick="deleteProduct('${p.id}')">Delete</button>
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function exportUpdatedHtml() {
-      const clone = document.documentElement.cloneNode(true);
-      const dataScript = clone.querySelector("#initial-store-data");
-      if (dataScript) {
-        dataScript.textContent = "\n    " + JSON.stringify(storeData, null, 2) + "\n  ";
-      }
-      const adminPanel = clone.querySelector("#adminPanel");
-      if (adminPanel) adminPanel.classList.remove("active");
-      const pinModal = clone.querySelector("#pinModal");
-      if (pinModal) pinModal.classList.remove("open");
-      const htmlString = "<!DOCTYPE html>\n" + clone.outerHTML;
-      const blob = new Blob([htmlString], { type: "text/html;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "index.html";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function copyPageLink() {
-      const link = window.location.href;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(link).then(() => alert("লিংক কপি হয়েছে: " + link)).catch(() => fallbackCopy(link));
-      } else {
-        fallbackCopy(link);
-      }
-    }
-
-    function fallbackCopy(text) {
-      const temp = document.createElement("input");
-      temp.value = text;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand("copy");
-      document.body.removeChild(temp);
-      alert("লিংক কপি হয়েছে: " + text);
-    }
-
-    function sharePageLink() {
-      const link = window.location.href;
-      if (navigator.share) {
-        navigator.share({ title: "Gloss Nest Cosmetics", url: link }).catch(() => {});
-      } else {
-        copyPageLink();
-      }
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&")
-        .replace(/</g, "<")
-        .replace(/>/g, ">")
-        .replace(/"/g, """)
-        .replace(/'/g, "'");
-    }
-
-    renderProducts();
-  </script>
-</body>
-</html>
+    function renderSummary() {
+      const calc = getOrderCalculation();
+      const summaryEl = document.getElementById("orderSummary");
+      summaryEl.innerHTML = `
+        <div class="summary-line">
+          <span>সিলেক্টেড প্রোডাক্ট:</span>
+          <span>${calc.summaryParts.length ? escapeHtml(calc.summaryParts.join(", ")) : "কোনো প্রোডাক্ট সিলেক্ট করা হয়নি (+ বাটনে চাপুন)"}</span>
+        </div>
+        <div class="summary-line">
+          <span>প্রোডাক্ট মূল্য:</span>
+          <strong>${formatBdt(calc.subtotal)}</strong>
+        </div>
+        <div class="summary-line">
+          <span>ডেলিভারি চার্জ (${escapeHtml(calc.areaLabel)}):</span>
+          <strong>${calc.subtotal > 0 ? formatBdt(calc.deliveryFee) : "৳০"}</strong>
+        </div>
+        <div class="summary-line">
+          <span>কাস্টমার তথ্য:</span>
+          <span>${escapeHtml((calc.name || "নাম নেই") + " | " + (calc.phone || "নম্বর নেই") + " | " + (calc.address || "ঠিকানা নেই"))}</span>
+        </div>
+        <div class="summary-total">
+          <span>সর্বমোট পরিশোধযোগ্য (ডেলিভারিসহ):</span>
+          <span>${formatBdt(calc.total)}</span>
