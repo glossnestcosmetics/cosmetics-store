@@ -892,3 +892,947 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gloss Nest Cosmetics — Official Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fff8fa;
+      --surface: #ffffff;
+      --surface-soft: #fdeef3;
+      --ink: #25131a;
+      --muted: #6e515c;
+      --rose: #b8295a;
+      --rose-dark: #8e1b43;
+      --gold: #c9963b;
+      --border: #f2d5df;
+      --success: #16794c;
+      --shadow: 0 12px 32px rgba(142, 27, 67, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .browser-bar {
+      background: #231118;
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 13.5px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .browser-bar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-mini {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-mini:hover { background: rgba(255,255,255,0.24); }
+    header.store-header {
+      background: linear-gradient(135deg, #fff0f5 0%, #ffe3ec 55%, #fff8fa 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .brand-title {
+      font-family: 'Playfair Display', 'Hind Siliguri', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--rose-dark);
+      letter-spacing: 0.3px;
+    }
+    .brand-sub { font-size: 13px; color: var(--muted); }
+    .header-btns { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 11px 18px;
+      border-radius: 12px;
+      border: none;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(184, 41, 90, 0.25);
+    }
+    .btn-primary:hover { filter: brightness(1.05); }
+    .btn-outline {
+      background: #fff;
+      color: var(--rose-dark);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { background: var(--surface-soft); }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-danger { background: #c62828; color: #fff; }
+    .hero { max-width: 1080px; margin: 24px auto 12px; padding: 0 20px; }
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .badge-pill {
+      display: inline-block;
+      background: var(--surface-soft);
+      color: var(--rose-dark);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .hero h1 { font-size: 28px; line-height: 1.25; color: var(--ink); margin-bottom: 8px; }
+    .hero p { color: var(--muted); max-width: 620px; font-size: 15.5px; }
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--rose-dark);
+    }
+    .container { max-width: 1080px; margin: 24px auto 60px; padding: 0 20px; }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .section-head h2 { font-size: 22px; color: var(--ink); }
+    .showcase-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+    .showcase-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .showcase-price {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--rose-dark);
+      margin-bottom: 14px;
+    }
+    .three-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 640px) {
+      .three-photo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .three-photo-grid img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      display: block;
+      background: #fff2f6;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 22px;
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-img-wrap {
+      position: relative;
+      background: #fff2f6;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .price-tag {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(37, 19, 26, 0.88);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 17px;
+      backdrop-filter: blur(4px);
+    }
+    .product-body {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .product-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .product-desc { font-size: 14px; color: var(--muted); }
+    .qty-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-soft);
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .qty-controls { display: flex; align-items: center; gap: 10px; }
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--rose-dark);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .order-box {
+      margin-top: 34px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--ink);
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 11px;
+      border: 1.5px solid #e7c6d2;
+      font-family: inherit;
+      font-size: 15px;
+      background: #fff;
+      color: var(--ink);
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--rose);
+    }
+    .summary-box {
+      margin-top: 18px;
+      background: var(--surface-soft);
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 15px;
+    }
+    .summary-line { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--rose-dark);
+      border-top: 1px dashed #dfa8bc;
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+    .admin-panel {
+      display: none;
+      margin-top: 34px;
+      background: #fffdfd;
+      border: 2px solid var(--gold);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .admin-panel.active { display: block; }
+    .admin-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+    .admin-list-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-top: 10px;
+      background: #fff;
+    }
+    .admin-item-left { display: flex; align-items: center; gap: 12px; }
+    .admin-item-left img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(25, 10, 16, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 22px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+    footer {
+      text-align: center;
+      padding: 28px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-bar" id="browserBar">
+    <span>🌐 Chrome বা External Browser-এ খুলতে বা লিংক শেয়ার করতে নিচের বাটন ব্যবহার করুন:</span>
+    <div class="browser-bar-actions">
+      <button class="btn-mini" type="button" onclick="copyPageLink()">📋 লিংক কপি করুন</button>
+      <button class="btn-mini" type="button" onclick="sharePageLink()">🔗 শেয়ার করুন</button>
+    </div>
+  </div>
+
+  <header class="store-header">
+    <div class="header-inner">
+      <div>
+        <div class="brand-title">Gloss Nest Cosmetics</div>
+        <div class="brand-sub">১০০% অথেনটিক স্কিনকেয়ার ও বিউটি কালেকশন • WhatsApp: 01885494199</div>
+      </div>
+      <div class="header-btns">
+        <a href="#order-section" class="btn btn-outline">🛒 অর্ডার ফর্ম</a>
+        <button type="button" class="btn btn-outline" onclick="openAdminModal()">⚙️ Store Manager</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div>
+        <span class="badge-pill">✨ Gloss Nest Cosmetics Official</span>
+        <h1>আপনার ত্বকের স্বাভাবিক উজ্জ্বলতা ও যত্নে প্রিমিয়াম কসমেটিকস</h1>
+        <p>পছন্দের প্রোডাক্ট বেছে নিয়ে সহজেই ক্যাশ অন ডেলিভারিতে অর্ডার করুন। আপনার অর্ডার সরাসরি আমাদের WhatsApp (<strong>01885494199</strong>)-এ পৌঁছে যাবে।</p>
+        <div class="trust-strip">
+          <span>✔ ক্যাশ অন ডেলিভারি</span>
+          <span>✔ দ্রুত হোম ডেলিভারি</span>
+          <span>✔ সহজ প্রোডাক্ট ও দাম আপডেট</span>
+        </div>
+      </div>
+      <div>
+        <a href="#products-section" class="btn btn-primary">প্রোডাক্ট দেখুন ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="products-section">
+      <div class="section-head">
+        <h2>আমাদের প্রোডাক্টসমূহ</h2>
+        <span id="productCountLabel" style="color: var(--muted); font-size: 14px;"></span>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-title">7-Fold Whitening & Anti-Wrinkle Royal Cream</div>
+        <div class="showcase-price">৳৩৯৯</div>
+        <div class="three-photo-grid">
+          <img src="IMG_7004.jpeg" alt="Royal Cream Photo 1" />
+          <img src="IMG_7005.jpeg" alt="Royal Cream Photo 2" />
+          <img src="IMG_7006.jpeg" alt="Royal Cream Photo 3" />
+        </div>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <section class="order-box" id="order-section">
+      <h2>অর্ডার কনফার্ম করুন (Cash on Delivery)</h2>
+      <p style="color: var(--muted); font-size: 14.5px; margin-top: 4px;">
+        নিচের তথ্যগুলো পূরণ করে বাটনে ক্লিক করলে WhatsApp-এ (<strong>01885494199</strong>) আপনার সম্পূর্ণ অর্ডার ডিটেইলস তৈরি হয়ে যাবে।
+      </p>
+      <form id="orderForm" onsubmit="submitWhatsAppOrder(event)">
+        <div class="form-grid">
+          <div class="field">
+            <label for="custName">আপনার নাম *</label>
+            <input type="text" id="custName" required placeholder="যেমন: নুসরাত জাহান" />
+          </div>
+          <div class="field">
+            <label for="custPhone">মোবাইল নম্বর *</label>
+            <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" />
+          </div>
+          <div class="field">
+            <label for="deliveryArea">ডেলিভারি এলাকা *</label>
+            <select id="deliveryArea" onchange="renderSummary()">
+              <option value="dhaka" data-fee="60">ঢাকার ভেতরে (ডেলিভারি চার্জ ৳৬০)</option>
+              <option value="outside" data-fee="120">ঢাকার বাইরে (ডেলিভারি চার্জ ৳১২০)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-top: 14px;">
+          <label for="custAddress">সম্পূর্ণ ঠিকানা *</label>
+          <textarea id="custAddress" rows="2" required placeholder="বাড়ি/হোল্ডিং নম্বর, রোড, এলাকা, থানা ও জেলা"></textarea>
+        </div>
+        <div class="summary-box" id="orderSummary"></div>
+        <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <button type="submit" class="btn btn-primary">📲 WhatsApp-এ অর্ডার পাঠান (01885494199)</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="admin-panel" id="adminPanel">
+      <div class="admin-top">
+        <div>
+          <h3>⚙️ Store Manager (প্রোডাক্ট, ছবি ও দাম পরিবর্তন)</h3>
+          <p style="font-size: 13.5px; color: var(--muted);">
+            নতুন প্রোডাক্ট যোগ করুন, ছবি আপলোড করুন বা দাম বদলান। সব কাস্টমারকে নতুন আপডেট দেখাতে <strong>Export Updated index.html</strong> ডাউনলোড করে হোস্টিংয়ে আপলোড করুন।
+          </p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-success" onclick="exportUpdatedHtml()">⬇ Export Updated index.html</button>
+          <button type="button" class="btn btn-outline" onclick="closeAdminPanel()">বন্ধ করুন</button>
+        </div>
+      </div>
+
+      <form id="productEditorForm" onsubmit="saveProduct(event)">
+        <input type="hidden" id="editProductId" />
+        <div class="form-grid">
+          <div class="field">
+            <label for="prodName">প্রোডাক্টের নাম *</label>
+            <input type="text" id="prodName" required placeholder="যেমন: 7-Fold Whitening & Anti-Wrinkle Royal Cream" />
+          </div>
+          <div class="field">
+            <label for="prodPrice">দাম (টাকায়) *</label>
+            <input type="number" id="prodPrice" min="1" required placeholder="399" />
+          </div>
+          <div class="field">
+            <label for="prodImageFile">ছবি নির্বাচন করুন (ফোন বা কম্পিউটার থেকে)</label>
+            <input type="file" id="prodImageFile" accept="image/*" onchange="handleImageUpload(event)" />
+          </div>
+        </div>
+        <div class="field" style="margin-top: 12px;">
+          <label for="prodImageUrl">অথবা ছবির ফাইলের নাম / লিংক</label>
+          <input type="text" id="prodImageUrl" placeholder="যেমন: IMG_7004.jpeg অথবা ছবি সিলেক্ট করুন" />
+        </div>
+        <div class="field" style="margin-top: 12px;">
+          <label for="prodDesc">সংক্ষিপ্ত বিবরণ</label>
+          <textarea id="prodDesc" rows="2" placeholder="প্রোডাক্টের উপকারিতা ও ব্যবহারের নিয়ম লিখুন"></textarea>
+        </div>
+        <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="submit" class="btn btn-primary" id="saveProdBtn">+ প্রোডাক্ট সেভ করুন</button>
+          <button type="button" class="btn btn-outline" onclick="resetEditorForm()">ফর্ম ক্লিয়ার</button>
+        </div>
+      </form>
+
+      <div id="adminProductList" style="margin-top: 22px;"></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="pinModal">
+    <div class="modal-card">
+      <h3 style="margin-bottom: 6px;">Store Manager লগইন</h3>
+      <p style="font-size: 13.5px; color: var(--muted); margin-bottom: 14px;">প্রোডাক্ট ও দাম ম্যানেজ করতে পিন কোড দিন (ডিফল্ট পিন: <strong>1234</strong>)।</p>
+      <div class="field">
+        <label for="pinInput">PIN কোড</label>
+        <input type="password" id="pinInput" placeholder="1234" onkeydown="if(event.key==='Enter') verifyPin()" />
+      </div>
+      <p id="pinError" style="color: #c62828; font-size: 13px; margin-top: 6px; display: none;">ভুল পিন! অনুগ্রহ করে 1234 দিন।</p>
+      <div style="margin-top: 16px; display: flex; gap: 10px; justify-content: flex-end;">
+        <button type="button" class="btn btn-outline" onclick="closeAdminModal()">বাতিল</button>
+        <button type="button" class="btn btn-primary" onclick="verifyPin()">Unlock</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>Gloss Nest Cosmetics</strong> • WhatsApp: 01885494199 • সর্বস্বত্ব সংরক্ষিত
+  </footer>
+
+  <script id="initial-store-data" type="application/json">
+    {
+      "storeName": "Gloss Nest Cosmetics",
+      "whatsapp": "01885494199",
+      "pin": "1234",
+      "products": [
+        {
+          "id": "royal-cream-399",
+          "name": "7-Fold Whitening & Anti-Wrinkle Royal Cream",
+          "price": 399,
+          "desc": "ত্বকের উজ্জ্বলতা বাড়াতে, বলিরেখা কমাতে এবং ময়েশ্চার ধরে রাখতে কার্যকরী রয়েল ক্রিম।",
+          "image": "IMG_7004.jpeg"
+        }
+      ]
+    }
+  </script>
+
+  <script>
+    const STORAGE_KEY = "gloss_nest_store_v1";
+    const ADMIN_PIN = "1234";
+    const WHATSAPP_NUMBER = "8801885494199";
+
+    function createPlaceholderImage(label) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffe4ee"/>
+            <stop offset="100%" stop-color="#f9c6da"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="600" fill="url(#g)"/>
+        <circle cx="300" cy="245" r="95" fill="#ffffff" opacity="0.85"/>
+        <text x="300" y="255" text-anchor="middle" font-size="54" fill="#b8295a">✨</text>
+        <text x="300" y="390" text-anchor="middle" font-size="26" font-weight="bold" fill="#5c162e" font-family="sans-serif">Gloss Nest Cosmetics</text>
+        <text x="300" y="428" text-anchor="middle" font-size="18" fill="#7c364e" font-family="sans-serif">${escapeHtml((label || "Royal Cream").slice(0, 32))}</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function loadStoreData() {
+      const embedded = JSON.parse(document.getElementById("initial-store-data").textContent);
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.products) && parsed.products.length > 0) {
+            return parsed;
+          }
+        }
+      } catch (e) {}
+      return embedded;
+    }
+
+    let storeData = loadStoreData();
+    let quantities = {};
+    let currentUploadedDataUrl = "";
+
+    function ensureQuantities() {
+      storeData.products.forEach((p, idx) => {
+        if (!quantities[p.id]) {
+          quantities[p.id] = idx === 0 ? 1 : 0;
+        }
+      });
+    }
+
+    function persistLocal() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(storeData));
+      } catch (e) {}
+    }
+
+    function formatBdt(amount) {
+      return "৳" + Number(amount || 0).toLocaleString("bn-BD");
+    }
+
+    function renderProducts() {
+      ensureQuantities();
+      const grid = document.getElementById("productsGrid");
+      const countLabel = document.getElementById("productCountLabel");
+      countLabel.textContent = `মোট প্রোডাক্ট: ${storeData.products.length}টি`;
+
+      grid.innerHTML = storeData.products.map(prod => {
+        const fallback = createPlaceholderImage(prod.name);
+        const imgSrc = prod.image && prod.image.trim() ? prod.image.trim() : fallback;
+        const qty = quantities[prod.id] || 0;
+        return `
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(prod.name)}" onerror="this.onerror=null;this.src='${fallback}'" />
+              <div class="price-tag">${formatBdt(prod.price)}</div>
+            </div>
+            <div class="product-body">
+              <div>
+                <h3 class="product-title">${escapeHtml(prod.name)}</h3>
+                <p class="product-desc">${escapeHtml(prod.desc || "")}</p>
+              </div>
+              <div>
+                <div class="qty-row" style="margin-bottom: 10px;">
+                  <span>পরিমাণ (Qty):</span>
+                  <div class="qty-controls">
+                    <button type="button" class="qty-btn" onclick="changeQty('${prod.id}', -1)">−</button>
+                    <span id="qty-${prod.id}">${qty}</span>
+                    <button type="button" class="qty-btn" onclick="changeQty('${prod.id}', 1)">+</button>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="selectAndOrder('${prod.id}')">
+                  এখনই অর্ডার করুন • ${formatBdt(prod.price)}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      renderSummary();
+      renderAdminList();
+    }
+
+    function changeQty(id, delta) {
+      const current = quantities[id] || 0;
+      quantities[id] = Math.max(0, current + delta);
+      renderProducts();
+    }
+
+    function selectAndOrder(id) {
+      if (!quantities[id] || quantities[id] < 1) {
+        quantities[id] = 1;
+      }
+      renderProducts();
+      document.getElementById("order-section").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function renderSummary() {
+      const areaSelect = document.getElementById("deliveryArea");
+      const deliveryFee = Number(areaSelect.options[areaSelect.selectedIndex].dataset.fee || 60);
+      let subtotal = 0;
+      const selectedItems = [];
+
+      storeData.products.forEach(p => {
+        const q = quantities[p.id] || 0;
+        if (q > 0) {
+          const lineTotal = q * Number(p.price || 0);
+          subtotal += lineTotal;
+          selectedItems.push(`${p.name} x ${q} = ৳${lineTotal}`);
+        }
+      });
+
+      const total = subtotal > 0 ? subtotal + deliveryFee : 0;
+      const summaryEl = document.getElementById("orderSummary");
+      summaryEl.innerHTML = `
+        <div class="summary-line">
+          <span>সিলেক্টেড প্রোডাক্ট:</span>
+          <span>${selectedItems.length ? escapeHtml(selectedItems.join(", ")) : "কোনো প্রোডাক্ট সিলেক্ট করা হয়নি (+ বাটনে চাপুন)"}</span>
+        </div>
+        <div class="summary-line">
+          <span>প্রোডাক্ট মূল্য:</span>
+          <strong>${formatBdt(subtotal)}</strong>
+        </div>
+        <div class="summary-line">
+          <span>ডেলিভারি চার্জ:</span>
+          <strong>${subtotal > 0 ? formatBdt(deliveryFee) : "৳০"}</strong>
+        </div>
+        <div class="summary-total">
+          <span>সর্বমোট পরিশোধযোগ্য:</span>
+          <span>${formatBdt(total)}</span>
+        </div>
+      `;
+    }
+
+    function submitWhatsAppOrder(e) {
+      e.preventDefault();
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const areaSelect = document.getElementById("deliveryArea");
+      const areaText = areaSelect.options[areaSelect.selectedIndex].text;
+      const deliveryFee = Number(areaSelect.options[areaSelect.selectedIndex].dataset.fee || 60);
+
+      let subtotal = 0;
+      const lines = [];
+      storeData.products.forEach(p => {
+        const q = quantities[p.id] || 0;
+        if (q > 0) {
+          const lineTotal = q * Number(p.price || 0);
+          subtotal += lineTotal;
+          lines.push(`• ${p.name} (${q} পিস) - ৳${lineTotal}`);
+        }
+      });
+
+      if (lines.length === 0) {
+        alert("অনুগ্রহ করে অন্তত ১টি প্রোডাক্টের পরিমাণ (+ বাটন) সিলেক্ট করুন।");
+        return;
+      }
+
+      const grandTotal = subtotal + deliveryFee;
+      const msg = [
+        "✨ *Gloss Nest Cosmetics — নতুন অর্ডার* ✨",
+        `👤 নাম: ${name}`,
+        `📞 ফোন: ${phone}`,
+        `📍 ঠিকানা: ${address}`,
+        `🚚 ডেলিভারি: ${areaText}`,
+        "",
+        "🛍️ *অর্ডারকৃত প্রোডাক্ট:*",
+        ...lines,
+        "",
+        `💰 প্রোডাক্ট মূল্য: ৳${subtotal}`,
+        `📦 ডেলিভারি চার্জ: ৳${deliveryFee}`,
+        `💵 *সর্বমোট: ৳${grandTotal}*`
+      ].join("\n");
+
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+    }
+
+    function openAdminModal() {
+      document.getElementById("pinInput").value = "";
+      document.getElementById("pinError").style.display = "none";
+      document.getElementById("pinModal").classList.add("open");
+      setTimeout(() => document.getElementById("pinInput").focus(), 50);
+    }
+
+    function closeAdminModal() {
+      document.getElementById("pinModal").classList.remove("open");
+    }
+
+    function verifyPin() {
+      const entered = document.getElementById("pinInput").value.trim();
+      if (entered === ADMIN_PIN) {
+        closeAdminModal();
+        document.getElementById("adminPanel").classList.add("active");
+        document.getElementById("adminPanel").scrollIntoView({ behavior: "smooth" });
+      } else {
+        document.getElementById("pinError").style.display = "block";
+      }
+    }
+
+    function closeAdminPanel() {
+      document.getElementById("adminPanel").classList.remove("active");
+    }
+
+    function handleImageUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        currentUploadedDataUrl = ev.target.result;
+        document.getElementById("prodImageUrl").value = currentUploadedDataUrl;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveProduct(e) {
+      e.preventDefault();
+      const editId = document.getElementById("editProductId").value.trim();
+      const name = document.getElementById("prodName").value.trim();
+      const price = Number(document.getElementById("prodPrice").value);
+      const desc = document.getElementById("prodDesc").value.trim();
+      const image = document.getElementById("prodImageUrl").value.trim() || currentUploadedDataUrl || "";
+      if (!name || !price) return;
+
+      if (editId) {
+        const idx = storeData.products.findIndex(p => p.id === editId);
+        if (idx > -1) {
+          storeData.products[idx] = { ...storeData.products[idx], name, price, desc, image };
+        }
+      } else {
+        const newId = "prod-" + Date.now();
+        storeData.products.push({ id: newId, name, price, desc, image });
+        quantities[newId] = 1;
+      }
+
+      persistLocal();
+      resetEditorForm();
+      renderProducts();
+      alert("প্রোডাক্ট সেভ হয়েছে! সব কাস্টমারকে দেখাতে 'Export Updated index.html' বাটনে ক্লিক করে ফাইলটি আপডেট করুন।");
+    }
+
+    function editProduct(id) {
+      const prod = storeData.products.find(p => p.id === id);
+      if (!prod) return;
+      document.getElementById("editProductId").value = prod.id;
+      document.getElementById("prodName").value = prod.name;
+      document.getElementById("prodPrice").value = prod.price;
+      document.getElementById("prodDesc").value = prod.desc || "";
+      document.getElementById("prodImageUrl").value = prod.image || "";
+      currentUploadedDataUrl = prod.image || "";
+      document.getElementById("saveProdBtn").textContent = "✓ আপডেট সেভ করুন";
+      document.getElementById("productEditorForm").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function deleteProduct(id) {
+      if (storeData.products.length <= 1) {
+        alert("অন্তত ১টি প্রোডাক্ট স্টোরে রাখা প্রয়োজন।");
+        return;
+      }
+      if (!confirm("আপনি কি এই প্রোডাক্টটি ডিলিট করতে চান?")) return;
+      storeData.products = storeData.products.filter(p => p.id !== id);
+      delete quantities[id];
+      persistLocal();
+      renderProducts();
+    }
+
+    function resetEditorForm() {
+      document.getElementById("editProductId").value = "";
+      document.getElementById("prodName").value = "";
+      document.getElementById("prodPrice").value = "";
+      document.getElementById("prodDesc").value = "";
+      document.getElementById("prodImageUrl").value = "";
+      document.getElementById("prodImageFile").value = "";
+      currentUploadedDataUrl = "";
+      document.getElementById("saveProdBtn").textContent = "+ প্রোডাক্ট সেভ করুন";
+    }
+
+    function renderAdminList() {
+      const container = document.getElementById("adminProductList");
+      container.innerHTML = `<h4 style="margin-bottom: 8px;">বর্তমান প্রোডাক্ট লিস্ট (${storeData.products.length})</h4>` + storeData.products.map(p => {
+        const fallback = createPlaceholderImage(p.name);
+        const thumb = p.image && p.image.trim() ? p.image.trim() : fallback;
+        return `
+          <div class="admin-list-item">
+            <div class="admin-item-left">
+              <img src="${escapeHtml(thumb)}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='${fallback}'" />
+              <div>
+                <div style="font-weight: 700;">${escapeHtml(p.name)}</div>
+                <div style="font-size: 14px; color: var(--rose-dark); font-weight: 600;">${formatBdt(p.price)}</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-outline" style="padding: 7px 12px; font-size: 13.5px;" onclick="editProduct('${p.id}')">Edit</button>
+              <button type="button" class="btn btn-danger" style="padding: 7px 12px; font-size: 13.5px;" onclick="deleteProduct('${p.id}')">Delete</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function exportUpdatedHtml() {
+      const clone = document.documentElement.cloneNode(true);
+      const dataScript = clone.querySelector("#initial-store-data");
+      if (dataScript) {
+        dataScript.textContent = "\n    " + JSON.stringify(storeData, null, 2) + "\n  ";
+      }
+      const adminPanel = clone.querySelector("#adminPanel");
+      if (adminPanel) adminPanel.classList.remove("active");
+      const pinModal = clone.querySelector("#pinModal");
+      if (pinModal) pinModal.classList.remove("open");
+      const htmlString = "<!DOCTYPE html>\n" + clone.outerHTML;
+      const blob = new Blob([htmlString], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "index.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function copyPageLink() {
+      const link = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(link).then(() => alert("লিংক কপি হয়েছে: " + link)).catch(() => fallbackCopy(link));
+      } else {
+        fallbackCopy(link);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const temp = document.createElement("input");
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+      alert("লিংক কপি হয়েছে: " + text);
+    }
+
+    function sharePageLink() {
+      const link = window.location.href;
+      if (navigator.share) {
+        navigator.share({ title: "Gloss Nest Cosmetics", url: link }).catch(() => {});
+      } else {
+        copyPageLink();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&")
+        .replace(/</g, "<")
+        .replace(/>/g, ">")
+        .replace(/"/g, """)
+        .replace(/'/g, "'");
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>
