@@ -1,3 +1,361 @@
 <img src="IMG_7004.jpeg" alt="Product 1" style="width:100%; border-radius:12px; margin:10px 0;" />
 <img src="IMG_7005.jpeg" alt="Product 2" style="width:100%; border-radius:12px; margin:10px 0;" />
 <img src="IMG_7006.jpeg" alt="Product 3" style="width:100%; border-radius:12px; margin:10px 0;" />
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gloss Nest Cosmetics</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      background: #fff5f8;
+      margin: 0;
+      padding: 16px;
+      color: #222;
+    }
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(158, 27, 67, 0.08);
+      margin-bottom: 18px;
+    }
+    h1 {
+      color: #9e1b43;
+      font-size: 24px;
+      margin: 0 0 14px 0;
+      text-align: center;
+    }
+    h2 {
+      color: #9e1b43;
+      font-size: 18px;
+      margin: 0 0 12px 0;
+    }
+    .product-box {
+      border: 1px solid #f2d5df;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      background: #fffafc;
+    }
+    .product-box img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .product-title {
+      font-size: 17px;
+      font-weight: bold;
+      margin: 0 0 6px 0;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #9e1b43;
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #d8c2ca;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-primary {
+      background: #9e1b43;
+      color: #ffffff;
+    }
+    .btn-secondary {
+      background: #f3e6eb;
+      color: #9e1b43;
+    }
+    .btn-danger {
+      background: #ffe3e3;
+      color: #b42318;
+      padding: 8px 12px;
+      font-size: 13px;
+      width: auto;
+      margin-top: 6px;
+    }
+    .admin-panel {
+      display: none;
+      border: 2px dashed #9e1b43;
+      background: #fff9fb;
+    }
+    .admin-item {
+      border: 1px solid #e5cbd4;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: #ffffff;
+    }
+    .note {
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+    }
+    .admin-toggle-wrap {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .admin-toggle-btn {
+      width: auto;
+      padding: 9px 16px;
+      font-size: 13px;
+      background: #efe2e7;
+      color: #6d122e;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Gloss Nest Cosmetics</h1>
+
+      <div id="productList"></div>
+
+      <form onsubmit="sendOrder(event)">
+        <label for="productSelect">প্রোডাক্ট নির্বাচন করুন</label>
+        <select id="productSelect"></select>
+
+        <label for="name">আপনার নাম</label>
+        <input type="text" id="name" placeholder="নাম লিখুন" required />
+
+        <label for="phone">মোবাইল নম্বর</label>
+        <input type="tel" id="phone" placeholder="01XXXXXXXXX" required />
+
+        <label for="address">ঠিকানা</label>
+        <textarea id="address" rows="2" placeholder="সম্পূর্ণ ঠিকানা লিখুন" required></textarea>
+
+        <label for="area">ডেলিভারি এলাকা</label>
+        <select id="area">
+          <option value="ঢাকার ভেতরে (৳৬০)">ঢাকার ভেতরে (৳৬০)</option>
+          <option value="ঢাকার বাইরে (৳১২০)">ঢাকার বাইরে (৳১২০)</option>
+        </select>
+
+        <button type="submit" class="btn-primary">WhatsApp-এ অর্ডার করুন (01885494199)</button>
+      </form>
+    </div>
+
+    <div class="card admin-panel" id="adminPanel">
+      <h2>Admin / Edit Mode</h2>
+      <p class="note">
+        ছবি ফাইলগুলো GitHub রিপোজিটরিতে আপলোড করে এখানে শুধু ছবির নাম (যেমন: <b>IMG_7004.jpeg</b> বা <b>IMG_7005.jpeg</b> বা <b>IMG_7006.jpeg</b>) বা ছবির লিংক দিন।
+      </p>
+
+      <div id="adminProductList"></div>
+
+      <button type="button" class="btn-secondary" onclick="addProduct()">+ নতুন প্রোডাক্ট যোগ করুন</button>
+      <button type="button" class="btn-primary" onclick="saveProducts()">সব পরিবর্তন সেভ করুন</button>
+      <button type="button" class="btn-secondary" onclick="resetDefaultProducts()">ডিফল্ট প্রোডাক্টে ফিরুন</button>
+      <button type="button" class="btn-secondary" onclick="logoutAdmin()">Admin Mode বন্ধ করুন</button>
+    </div>
+
+    <div class="admin-toggle-wrap">
+      <button type="button" class="admin-toggle-btn" onclick="toggleAdmin()">Admin / Edit Mode</button>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_PIN = "1234";
+    const STORAGE_KEY = "gloss_nest_products_v1";
+
+    const defaultProducts = [
+      {
+        name: "7-Fold Whitening & Anti-Wrinkle Royal Cream",
+        price: "৩৯৯",
+        image: "IMG_7004.jpeg"
+      }
+    ];
+
+    let products = loadProducts();
+    let isAdminUnlocked = false;
+
+    function loadProducts() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch (e) {}
+      return JSON.parse(JSON.stringify(defaultProducts));
+    }
+
+    function renderStore() {
+      const listEl = document.getElementById("productList");
+      const selectEl = document.getElementById("productSelect");
+
+      listEl.innerHTML = "";
+      selectEl.innerHTML = "";
+
+      products.forEach((item, index) => {
+        const box = document.createElement("div");
+        box.className = "product-box";
+
+        const imgHtml = item.image
+          ? `<img src="${escapeAttr(item.image)}" alt="${escapeAttr(item.name)}" onerror="this.style.display='none'" />`
+          : "";
+
+        box.innerHTML = `
+          ${imgHtml}
+          <div class="product-title">${escapeHtml(item.name)}</div>
+          <div class="price">৳${escapeHtml(item.price)}</div>
+        `;
+        listEl.appendChild(box);
+
+        const option = document.createElement("option");
+        option.value = `${item.name} (৳${item.price})`;
+        option.textContent = `${item.name} - ৳${item.price}`;
+        if (index === 0) option.selected = true;
+        selectEl.appendChild(option);
+      });
+    }
+
+    function renderAdminList() {
+      const adminListEl = document.getElementById("adminProductList");
+      adminListEl.innerHTML = "";
+
+      products.forEach((item, idx) => {
+        const div = document.createElement("div");
+        div.className = "admin-item";
+        div.innerHTML = `
+          <label>প্রোডাক্টের নাম</label>
+          <input type="text" value="${escapeAttr(item.name)}" onchange="updateField(${idx}, 'name', this.value)" />
+
+          <label>দাম (শুধু সংখ্যা বা বাংলা সংখ্যা)</label>
+          <input type="text" value="${escapeAttr(item.price)}" onchange="updateField(${idx}, 'price', this.value)" />
+
+          <label>ছবির ফাইলনাম বা লিংক</label>
+          <input type="text" value="${escapeAttr(item.image)}" placeholder="যেমন: IMG_7004.jpeg" onchange="updateField(${idx}, 'image', this.value)" />
+
+          <button type="button" class="btn-danger" onclick="deleteProduct(${idx})">মুছে ফেলুন</button>
+        `;
+        adminListEl.appendChild(div);
+      });
+    }
+
+    function updateField(index, field, value) {
+      products[index][field] = value.trim();
+    }
+
+    function addProduct() {
+      products.push({
+        name: "নতুন প্রোডাক্ট",
+        price: "৪৯৯",
+        image: "IMG_7005.jpeg"
+      });
+      renderAdminList();
+    }
+
+    function deleteProduct(index) {
+      if (products.length <= 1) {
+        alert("অন্তত ১টি প্রোডাক্ট রাখা প্রয়োজন।");
+        return;
+      }
+      products.splice(index, 1);
+      renderAdminList();
+    }
+
+    function saveProducts() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+      renderStore();
+      alert("পরিবর্তন সেভ হয়েছে!");
+    }
+
+    function resetDefaultProducts() {
+      products = JSON.parse(JSON.stringify(defaultProducts));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+      renderStore();
+      renderAdminList();
+      alert("ডিফল্ট প্রোডাক্টে ফিরে এসেছে।");
+    }
+
+    function toggleAdmin() {
+      const panel = document.getElementById("adminPanel");
+      if (isAdminUnlocked) {
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+        return;
+      }
+      const pin = prompt("Admin Mode খুলতে PIN দিন:");
+      if (pin === ADMIN_PIN) {
+        isAdminUnlocked = true;
+        panel.style.display = "block";
+        renderAdminList();
+        panel.scrollIntoView({ behavior: "smooth" });
+      } else if (pin !== null) {
+        alert("ভুল PIN!");
+      }
+    }
+
+    function logoutAdmin() {
+      isAdminUnlocked = false;
+      document.getElementById("adminPanel").style.display = "none";
+    }
+
+    function sendOrder(e) {
+      e.preventDefault();
+      var product = document.getElementById("productSelect").value;
+      var name = document.getElementById("name").value.trim();
+      var phone = document.getElementById("phone").value.trim();
+      var address = document.getElementById("address").value.trim();
+      var area = document.getElementById("area").value;
+
+      var message =
+        "Gloss Nest Cosmetics অর্ডার\n" +
+        "প্রোডাক্ট: " + product + "\n" +
+        "নাম: " + name + "\n" +
+        "মোবাইল: " + phone + "\n" +
+        "ঠিকানা: " + address + "\n" +
+        "ডেলিভারি: " + area;
+
+      var url = "https://wa.me/8801885494199?text=" + encodeURIComponent(message);
+      window.open(url, "_blank");
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&")
+        .replace(/</g, "<")
+        .replace(/>/g, ">")
+        .replace(/"/g, """);
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str).replace(/'/g, "'");
+    }
+
+    renderStore();
+  </script>
+</body>
+</html>
